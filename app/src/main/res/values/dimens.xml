@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="RegisterLabel">35sp</dimen>
+    <dimen name="ScreenPadding">16dp</dimen>
+
+</resources>

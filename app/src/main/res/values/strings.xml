@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Spark Library</string>
+    <string name="etUserName">Enter your username</string>
+    <string name="etPassword">Enter your password</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Register</string>
+    <string name="LoginResultWarning">*Wrong username or password</string>
+    <string name="tvRegisterName">Enter your name</string>
+    <string name="tvRegisterLastname">Enter your lastname</string>
+    <string name="tvRegisterUsername">Enter your username</string>
+    <string name="tvRegisterPassword">Enter your password</string>
+    <string name="btnRegisterSave">Register me</string>
+    <string name="tvRegister">Register</string>
+    <string name="LoginRequiredFields">*Please enter all required fields</string>
+    <string name="RegisterRequiredFields">*Please enter all required fields</string>
+    <string name="RegisterUserExists">User with that username already exists</string>
+    <string name="PasswordMinLength">*Password must be at least 8 characters long</string>
+    <string name="UserCreateSucces">created successfully</string>
+    <string name="Success">Succes!</string>
+</resources>
