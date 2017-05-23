@@ -282,6 +282,7 @@ public class MojDbContext extends SQLiteOpenHelper {
         Cursor c = db.rawQuery("SELECT "
                         + Korisnici_KorisnikID + ","
                         + Korisnici_Ime + ","
+                        + Korisnici_Prezime + ","
                         + Korisnici_KorisnickoIme + ","
                         + Korisnici_Password
                         + " FROM " + TABLE_Korisnici
@@ -292,8 +293,8 @@ public class MojDbContext extends SQLiteOpenHelper {
                 String korisnikID = c.getString(0);
                 String ime = c.getString(1);
                 String prezime = c.getString(2);
-                String korisnickoIme = c.getString(2);
-                String password = c.getString(3);
+                String korisnickoIme = c.getString(3);
+                String password = c.getString(4);
                 //Do something Here with values
 
                 korisnici.add(new Korisnik(Integer.parseInt(korisnikID), ime, prezime, korisnickoIme, password));
@@ -313,6 +314,7 @@ public class MojDbContext extends SQLiteOpenHelper {
         String selectQuery = "SELECT "
                 + Korisnici_KorisnikID + ","
                 + Korisnici_Ime + ","
+                + Korisnici_Prezime + ","
                 + Korisnici_KorisnickoIme + ","
                 + Korisnici_Password
                 + " FROM " + TABLE_Korisnici
@@ -323,8 +325,8 @@ public class MojDbContext extends SQLiteOpenHelper {
             String korisnikID = c.getString(0);
             String ime = c.getString(1);
             String prezime = c.getString(2);
-            String korisnickoIme = c.getString(2);
-            String _password = c.getString(3);
+            String korisnickoIme = c.getString(3);
+            String _password = c.getString(4);
             k = new Korisnik(Integer.parseInt(korisnikID), ime, prezime, korisnickoIme, _password);
         }
         c.close();

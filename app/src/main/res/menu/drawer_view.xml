@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_knjige"
+            android:icon="@drawable/ic_books"
+            android:title="@string/navTitleKnjige"
+            android:checked="true" />
+        <item
+            android:id="@+id/nav_clanovi"
+            android:icon="@drawable/ic_clanovi"
+            android:title="@string/navTitleClanovi" />
+        <item
+            android:id="@+id/nav_posudjene_knjige"
+            android:icon="@drawable/ic_posudjene_knjige"
+            android:title="@string/navTitlePosudjeneKnjige" />
+        <item
+            android:id="@+id/nav_profile_box"
+            android:icon="@drawable/ic_profilebox"
+            android:title="@string/navTitleProfileBox" />
+        <item
+            android:id="@+id/nav_postavke"
+            android:icon="@drawable/ic_postavke"
+            android:title="@string/navTitlePostavke" />
+
+        <item
+            android:id="@+id/nav_odjavi_se"
+            android:icon="@drawable/ic_odjavi_se"
+            android:title="@string/navTitleOdjaviSe" />
+    </group>
+</menu>

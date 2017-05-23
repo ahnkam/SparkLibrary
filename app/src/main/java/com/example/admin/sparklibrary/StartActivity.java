@@ -12,13 +12,10 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-//        if(Sesija.getLogiraniKorisnik(this)==null)
-//            startActivity(LoginActivity.getInstance(this));
-//        else
-//            startActivity(MainActivity.getInstance(this));
-
-        startActivity(LoginActivity.getInstance(this));
-
+        if (Sesija.getLogiraniKorisnik(this) == null)
+            startActivity(LoginActivity.getInstance(this));
+        else
+            startActivity(MainActivity.getInstance(this));
         finish();
 
     }

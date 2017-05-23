@@ -17,4 +17,14 @@
     <string name="PasswordMinLength">*Password must be at least 8 characters long</string>
     <string name="UserCreateSucces">created successfully</string>
     <string name="Success">Succes!</string>
+    <string name="navTitleKnjige">Knjige</string>
+    <string name="navTitleClanovi">Clanovi</string>
+    <string name="navTitlePosudjeneKnjige">Posuđene knjige</string>
+    <string name="navTitleProfileBox">Profil</string>
+    <string name="navTitlePostavke">Postavke</string>
+    <string name="navTitleOdjaviSe">Odjavi se</string>
+
+    <string name="drawer_open">Otvori navigation drawer</string>
+    <string name="drawer_close">Zatvori navigation drawer</string>
+
 </resources>
