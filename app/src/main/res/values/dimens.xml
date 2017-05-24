@@ -2,5 +2,6 @@
 <resources>
     <dimen name="RegisterLabel">35sp</dimen>
     <dimen name="ScreenPadding">16dp</dimen>
+    <dimen name="naslovKnjigeTextSize">25sp</dimen>
 
 </resources>

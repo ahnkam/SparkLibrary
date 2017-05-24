@@ -7,9 +7,12 @@ public class Knjige {
     private String Naslov;
     private String ImeAutora;
     private String Naklada;
-    private Date GodinaIzdanja;
+    private int GodinaIzdanja;
+    private Date DatumDodavanja;
     private int BrojStranica;
     private boolean IsIznajmljena;
     private int KnjigaID;
+    private int KlasifikacijaID;
+    private int KorisnikID;
 
 }

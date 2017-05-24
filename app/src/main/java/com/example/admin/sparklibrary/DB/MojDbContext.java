@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.admin.sparklibrary.Model.Clan;
+import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.Model.Korisnik;
+import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +155,7 @@ public class MojDbContext extends SQLiteOpenHelper {
                 "("
                 + Knjige_KnjigaID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL ,"
                 + Knjige_BrojStranica + " integer NOT NULL,"
-                + Knjige_DatumDodavanja + " datetime TEXT NOT NULL,"
+                + Knjige_DatumDodavanja + " TEXT NOT NULL,"
                 + Knjige_GodinaIzdanja + " integer NOT NULL,"
                 + Knjige_ImeAutora + " TEXT NOT NULL,"
                 + Knjige_IsIznajmljena + " integer DEFAULT 0,"
@@ -169,8 +172,8 @@ public class MojDbContext extends SQLiteOpenHelper {
         //Iznajmljene knjige
         db.execSQL("CREATE TABLE " + TABLE_ClanoviKnjige +
                 "("
-                + ClanoviKnjige_ClanID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL ,"
-                + ClanoviKnjige_ClanoviKnjigeID + " INT NOT NULL,"
+                + ClanoviKnjige_ClanoviKnjigeID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL ,"
+                + ClanoviKnjige_ClanID + " INT NOT NULL,"
                 + ClanoviKnjige_KnjigaID + " INT NOT NULL,"
                 + "FOREIGN KEY(" + ClanoviKnjige_ClanID + ") REFERENCES " + TABLE_Clanovi + "(" + Clanovi_ClanID + "),"
                 + "FOREIGN KEY(" + ClanoviKnjige_KnjigaID + ") REFERENCES " + TABLE_Knjige + "(" + Knjige_KnjigaID + ")"
@@ -364,7 +367,54 @@ public class MojDbContext extends SQLiteOpenHelper {
 
     }
 
+
     //TODO : CRUD Knjige
+
+    public List<KnjigeViewModel> usp_SelectKnjige() {
+
+        List<KnjigeViewModel> knjige = new ArrayList<>();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT "
+                        + TABLE_Knjige + ".*,"
+                        + TABLE_Klasifikacija + "." + Klasifikacije_Naziv
+                        + " FROM " + TABLE_Knjige
+                        + " JOIN " + TABLE_Klasifikacija + " ON "
+                        + TABLE_Knjige + "." + Knjige_KlasifikacijaID + " = "
+                        + TABLE_Klasifikacija + "." + Klasifikacije_KlasifikacijaID
+                , null);
+        if (c.moveToFirst()) {
+            do {
+                //assing values
+                //KnjigaID,BrojStranica,DatumDodavanja,GodinaIzdanja,ImeAutora,IsIznajmljena,Naklada,Naslov,KorisnikID,KlasifikacijaID,Naziv
+
+                String KnjigaID = c.getString(0);
+                String BrojStranica = c.getString(1);
+                String DatumDodavanja = c.getString(2);
+                String GodinaIzdanja = c.getString(3);
+                String ImeAutora = c.getString(4);
+                String IsIznajmljena = c.getString(5);
+                String Naklada = c.getString(6);
+                String Naslov = c.getString(7);
+                String KorisnikID = c.getString(8);
+                String KlasifikacijaID = c.getString(9);
+                String Naziv = c.getString(10);
+
+                //Do something Here with values
+
+                knjige.add(new KnjigeViewModel(KnjigaID, BrojStranica, DatumDodavanja, GodinaIzdanja, ImeAutora,
+                        IsIznajmljena, Naklada, Naslov, KorisnikID, KlasifikacijaID, Naziv));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+
+        return knjige;
+
+    }
+
 
 
 }

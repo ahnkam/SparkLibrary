@@ -17,6 +17,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.admin.sparklibrary.Config.Sesija;
+import com.example.admin.sparklibrary.Fragmenti.ClanoviFragment;
+import com.example.admin.sparklibrary.Fragmenti.KnjigeFragment;
+import com.example.admin.sparklibrary.Fragmenti.PostavkeFragment;
+import com.example.admin.sparklibrary.Fragmenti.PosudjeneKnjigeFragment;
+import com.example.admin.sparklibrary.Fragmenti.ProfileBoxFragment;
 import com.example.admin.sparklibrary.Model.Korisnik;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
         tvKnjiznicarIme = (TextView) nvDrawer.getHeaderView(0).findViewById(R.id.tvKnjiznicarIme);
         tvKnjiznicarIme.setText(prijavljeniKnjiznicar.getIme() + " " + prijavljeniKnjiznicar.getPrezime());
 
-
-
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragmentPlaceholder, KnjigeFragment.getInstance()).commit();
+        }
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -92,19 +99,24 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
 //        Fragment fragment = null;
 //        Class fragmentClass;
-
+        Fragment fragment = null;
         switch (menuItem.getItemId()) {
             case R.id.nav_knjige:
+                fragment = KnjigeFragment.getInstance();
                 break;
             case R.id.nav_clanovi:
+                fragment = ClanoviFragment.getInstance();
                 break;
             case R.id.nav_posudjene_knjige:
+                fragment = PosudjeneKnjigeFragment.getInstance();
                 break;
 
             case R.id.nav_profile_box:
+                fragment = ProfileBoxFragment.getInstance();
                 break;
 
             case R.id.nav_postavke:
+                fragment = PostavkeFragment.getInstance();
                 break;
 
             case R.id.nav_odjavi_se:
@@ -116,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO Postimati otvaranje fragmenta
         // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.fragmentPlaceholder, fragment).commit();
-
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragmentPlaceholder, fragment).commit();
+        }
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
         // Set action bar title
