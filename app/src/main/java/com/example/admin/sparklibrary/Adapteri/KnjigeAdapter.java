@@ -2,30 +2,49 @@ package com.example.admin.sparklibrary.Adapteri;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.R;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Admin on 24.05.2017..
  */
 
-public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeViewHolder> {
+public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeViewHolder> implements Filterable {
 
+    public interface IKnjigeClick {
+        void onKnjigaLongClick(int position);
+    }
     Context ctx;
     List<KnjigeViewModel> knjige;
+    List<KnjigeViewModel> filteredKnjige;
+    private ItemFilter mFilter = new ItemFilter();
+    IKnjigeClick callback;
 
-    public KnjigeAdapter(Context ctx, List<KnjigeViewModel> knjige) {
+    public KnjigeAdapter(Context ctx, List<KnjigeViewModel> knjige, IKnjigeClick callback) {
         this.ctx = ctx;
-        this.knjige = knjige;
+        this.knjige = new ArrayList<>();
+        this.filteredKnjige = new ArrayList<>();
+        //nije puno samo 2 sata na ovome.. SAMO POINTER BAJO MOJ
+        this.knjige.addAll(knjige);
+        this.filteredKnjige.addAll(knjige);
+        this.callback = callback;
+
     }
 
     @Override
@@ -41,38 +60,110 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
 
     @Override
     public int getItemCount() {
-        return knjige.size();
+        return filteredKnjige.size();
     }
 
-    public class KnjigeViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Filter getFilter() {
+        return mFilter;
+    }
+
+    public void updateData(List<KnjigeViewModel> knjigeViewModels) {
+        knjige.clear();
+        filteredKnjige.clear();
+        knjige.addAll(knjigeViewModels);
+        filteredKnjige.addAll(knjigeViewModels);
+        this.notifyDataSetChanged();
+    }
+
+    public class KnjigeViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         TextView tvNaslovKnjige;
         TextView tvNazivAutora;
         TextView tvNazivKlasifikacije;
         TextView tvGodinaIzdanja;
         ImageView ivIsAvailable;
+        int position;
 
         public KnjigeViewHolder(View itemView) {
             super(itemView);
-
             tvNaslovKnjige = (TextView) itemView.findViewById(R.id.tvKnjigaNaslov);
             tvNazivAutora = (TextView) itemView.findViewById(R.id.tvKnjigaAutorIme);
             tvNazivKlasifikacije = (TextView) itemView.findViewById(R.id.tvKnjigaAutorKlasifikacijaNaziv);
             tvGodinaIzdanja = (TextView) itemView.findViewById(R.id.tvKnjigaGodinaIzdanja);
-
             ivIsAvailable = (ImageView) itemView.findViewById(R.id.ivKnjigaIsIznajmljena);
+            itemView.setOnLongClickListener(this);
+
+
         }
 
         public void bindData(int position) {
-            tvNaslovKnjige.setText(knjige.get(position).getNaslov());
-            tvNazivAutora.setText(knjige.get(position).getImeAutora());
-            tvNazivKlasifikacije.setText(knjige.get(position).getNazivKlasifikacije());
-            tvGodinaIzdanja.setText(knjige.get(position).getGodinaIzdanja() + "");
+            this.position = position;
+            tvNaslovKnjige.setText(filteredKnjige.get(position).getNaslov());
+            tvNazivAutora.setText(filteredKnjige.get(position).getImeAutora());
+            tvNazivKlasifikacije.setText(filteredKnjige.get(position).getNazivKlasifikacije());
+            tvGodinaIzdanja.setText(filteredKnjige.get(position).getGodinaIzdanja() + "");
 
             if (knjige.get(position).isIznajmljena())
-                ivIsAvailable.setImageResource(R.drawable.ic_knjiga_not_available);
+                ivIsAvailable.setImageResource(R.mipmap.ic_not_available);
             else
-                ivIsAvailable.setImageResource(R.drawable.ic_knjiga_available);
+                ivIsAvailable.setImageResource(R.mipmap.ic_available);
 
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            callback.onKnjigaLongClick(position);
+//            v.showContextMenu();
+            return false;
+        }
+
+
+    }
+
+    private class ItemFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint == null || constraint.toString().isEmpty() || constraint.toString().length() == 0) {
+                results.values = knjige;
+                return results;
+            }
+            String filterString = constraint.toString().toLowerCase();
+
+
+            ;
+
+            int count = knjige.size();
+            ArrayList<KnjigeViewModel> resultList = new ArrayList<>();
+
+            String filterableString;
+
+            for (int i = 0; i < count; i++) {
+                filterableString = knjige.get(i).getNazivKlasifikacije();
+                if (filterableString.toLowerCase().contains(filterString)) {
+                    resultList.add(knjige.get(i));
+                }
+            }
+
+            results.values = resultList;
+            filteredKnjige.clear();
+            filteredKnjige.addAll(resultList);
+
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredKnjige.clear();
+            //BAJO MOJ I OVO TI JE UKLJUCENO U ONIH 2 sata
+            filteredKnjige.addAll((Collection<KnjigeViewModel>) results.values);
+
+            notifyDataSetChanged();
+        }
+
     }
 }

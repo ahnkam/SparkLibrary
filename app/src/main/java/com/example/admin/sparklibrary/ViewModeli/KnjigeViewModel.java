@@ -30,8 +30,9 @@ public class KnjigeViewModel {
         String s = "03/24/2013 21:54";
 
         DatumDodavanja = DateTimeFormater.getDateFromString(datumDodavanja);
+        GodinaIzdanja = Integer.parseInt(godinaIzdanja);
         ImeAutora = imeAutora;
-        IsIznajmljena = Boolean.parseBoolean(isIznajmljena);
+        IsIznajmljena = Integer.parseInt(isIznajmljena) == 1 ? true : false;
         Naklada = naklada;
         Naslov = naslov;
         KorisnikID = Integer.parseInt(korisnikID);

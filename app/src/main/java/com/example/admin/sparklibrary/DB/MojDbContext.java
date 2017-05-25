@@ -4,11 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.admin.sparklibrary.Model.Clan;
+import com.example.admin.sparklibrary.Model.Klasifikacija;
 import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.Model.Korisnik;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
@@ -416,5 +418,69 @@ public class MojDbContext extends SQLiteOpenHelper {
     }
 
 
+    public List<Klasifikacija> usp_SelectKlasifikacije() {
+        List<Klasifikacija> klasifikacije = new ArrayList<>();
 
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_Klasifikacija
+                , null);
+        if (c.moveToFirst()) {
+            do {
+                //assing values
+                //KlasifikacijaID,Naziv
+                String KlasifikacijaID = c.getString(0);
+                String Naziv = c.getString(1);
+
+                //Do something Here with values
+
+                klasifikacije.add(new Klasifikacija(KlasifikacijaID, Naziv));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return klasifikacije;
+
+    }
+
+    public boolean usp_InsertKnjige(int knjigaID, int brojStranica, String datumDodavanja, int godinaIzdanja, String imeAutora, boolean iznajmljena,
+                                    String naklada, String naslov, int korisnikID, int klasifikacijaID) {
+        ContentValues values = new ContentValues();
+
+        values.put(Knjige_BrojStranica, brojStranica);
+        values.put(Knjige_DatumDodavanja, datumDodavanja);
+        values.put(Knjige_GodinaIzdanja, godinaIzdanja);
+        values.put(Knjige_ImeAutora, imeAutora);
+        values.put(Knjige_IsIznajmljena, iznajmljena == true ? 1 : 0);
+        values.put(Knjige_Naklada, naklada);
+        values.put(Knjige_Naslov, naslov);
+        values.put(Knjige_KorisnikID, korisnikID);
+        values.put(Knjige_KlasifikacijaID, klasifikacijaID);
+
+        SQLiteDatabase db = getReadableDatabase();
+        long result = db.insert(TABLE_Knjige, null, values);
+        db.close();
+
+        return result != -1;
+
+    }
+
+    public boolean usp_InsertKlasifikacija(String naziv) {
+        ContentValues values = new ContentValues();
+        values.put(Klasifikacije_Naziv, naziv);
+        SQLiteDatabase db = getReadableDatabase();
+        long result = db.insert(TABLE_Klasifikacija, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    public boolean usp_DeleteKnjige(int knjigaID) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.rawQuery("DELETE FROM "
+                + TABLE_Knjige + " WHERE " + Knjige_KnjigaID + " = ?", new String[]{knjigaID + ""});
+        db.close();
+        return true;
+    }
 }

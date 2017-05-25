@@ -20,4 +20,9 @@ public class DateTimeFormater {
         }
         return date;
     }
+
+    public static String getStringFromDate(Date datumDodavanja) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return simpleDateFormat.format(datumDodavanja);
+    }
 }

@@ -26,5 +26,27 @@
 
     <string name="drawer_open">Otvori navigation drawer</string>
     <string name="drawer_close">Zatvori navigation drawer</string>
+    <string name="tvAddBookNaslov">Enter title</string>
+    <string name="tvAddBook">Add book</string>
+    <string name="tvBookTitle">Enter book title</string>
+    <string name="tvBookNaklada">Enter book edition</string>
+    <string name="tvBookImeAutora">Enter Autor name</string>
+    <string name="tvBookGodinaIzdanja">Enter publication year</string>
+    <string name="tvBookBrojStranica">Enter page number</string>
+    <string name="btnBookAddBook">Add book</string>
+    <string name="tvBookKlasifikacija">Select book classification</string>
+    <string name="AddBookWarning">*Please enter required fields</string>
+    <string name="AddBookSuccesTitleMessage">Knjiga uspjesno dodana!</string>
+    <string name="Error">Oups error!!</string>
+    <string name="AddKlasifikacijaDialogTitle">Add classification</string>
+    <string name="hintDialogKlasifikacijaNaziv">Tehnologija</string>
+    <string name="AddKlasifikacijaDialogPositive">Add</string>
+    <string name="DialogCancel">Cancel</string>
+    <string name="AddKlasifikacijaWarning">*That classification already exists!</string>
+    <string name="menuFilterBook">Filter books</string>
+    <string name="FilteBooksFilter">Filter</string>
+    <string name="FilterBooksDialogTitle">Select your filter</string>
+    <string name="contextMenuDelete">Delete</string>
+    <string name="contextMenuEdit">Edit</string>
 
 </resources>

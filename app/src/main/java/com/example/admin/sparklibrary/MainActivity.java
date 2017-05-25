@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (savedInstanceState == null)
+            toolbar.setTitle(R.string.navTitleKnjige);
         setSupportActionBar(toolbar);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Find our drawer view
@@ -67,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         // and will not render the hamburger icon without it.
         return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
@@ -139,8 +139,6 @@ public class MainActivity extends AppCompatActivity {
         // Close the navigation drawer
         drawer.closeDrawers();
     }
-
-
     // `onPostCreate` called when activity start-up is complete after `onStart()`
     // NOTE 1: Make sure to override the method with only a single `Bundle` argument
     // Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method.
@@ -151,17 +149,16 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
-
     public static Intent getInstance(Context ctx) {
         return new Intent(ctx, MainActivity.class);
     }
+
 
 }
 
