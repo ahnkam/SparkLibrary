@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.admin.sparklibrary.Adapteri.KnjigeAdapter;
 import com.example.admin.sparklibrary.Dialogs.VratiPosudjenuKnjiguDialog;
@@ -24,7 +23,6 @@ import com.example.admin.sparklibrary.EvidencijaKnjigaActivity;
 import com.example.admin.sparklibrary.Dialogs.FilterBooksDialog;
 import com.example.admin.sparklibrary.Kontroleri.KnjigeKontroler;
 import com.example.admin.sparklibrary.Model.Clan;
-import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.PosudjivanjeKnjiga;
 import com.example.admin.sparklibrary.R;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
@@ -41,7 +39,7 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
     private List<KnjigeViewModel> knjige;
     private KnjigeAdapter adapter;
 
-    private int longKnjigaKlikSelected = -1;
+    private KnjigeViewModel longKnjigaKlikSelected = null;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,18 +103,18 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
 
     //
     @Override
-    public void onKnjigaLongClick(int position) {
-        longKnjigaKlikSelected = position;
+    public void onKnjigaLongClick(KnjigeViewModel knjigaSelected) {
+        longKnjigaKlikSelected = knjigaSelected;
     }
 
     @Override
-    public void onKnjigaClick(int position) {
-        if (knjige.get(position).isIznajmljena()) {
-            DialogFragment f = VratiPosudjenuKnjiguDialog.getInstance(knjige.get(position));
+    public void onKnjigaClick(KnjigeViewModel knjigaSelected) {
+        if (knjigaSelected.isIznajmljena()) {
+            DialogFragment f = VratiPosudjenuKnjiguDialog.getInstance(knjigaSelected);
             f.setTargetFragment(this, 0);
             f.show(getChildFragmentManager(), null);
         } else
-            startActivityForResult(PosudjivanjeKnjiga.getInstance(getContext(), knjige.get(position)), PosudjivanjeKnjiga.REQUEST_CODE);
+            startActivityForResult(PosudjivanjeKnjiga.getInstance(getContext(), knjigaSelected), PosudjivanjeKnjiga.REQUEST_CODE);
     }
 
     //kreiranje context menia
@@ -132,16 +130,21 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        if (longKnjigaKlikSelected == -1)
+        int position = -1;
+        for (int i = 0; i < knjige.size(); ++i) {
+            if (knjige.get(i).getKnjigaID() == longKnjigaKlikSelected.getKnjigaID())
+                position = i;
+        }
+        if (position == -1)
             return false;
         switch (item.getItemId()) {
             case R.id.contextMenuDelete:
-                KnjigeKontroler.DeleteKnjige(getContext(), knjige.get(longKnjigaKlikSelected).getKnjigaID());
+                KnjigeKontroler.DeleteKnjige(getContext(), knjige.get(position).getKnjigaID());
                 knjige.remove(longKnjigaKlikSelected);
                 adapter.updateData(knjige);
                 return true;
             case R.id.contextMenuEdit:
-                startActivity(EvidencijaKnjigaActivity.getInstance(getContext(), knjige.get(longKnjigaKlikSelected)));
+                startActivity(EvidencijaKnjigaActivity.getInstance(getContext(), longKnjigaKlikSelected));
                 return true;
         }
         return super.onContextItemSelected(item);

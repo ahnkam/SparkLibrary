@@ -28,9 +28,9 @@ import java.util.List;
 public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeViewHolder> implements Filterable {
 
     public interface IKnjigeClick {
-        void onKnjigaLongClick(int position);
+        void onKnjigaLongClick(KnjigeViewModel position);
 
-        void onKnjigaClick(int position);
+        void onKnjigaClick(KnjigeViewModel position);
     }
     Context ctx;
     List<KnjigeViewModel> knjige;
@@ -115,7 +115,7 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
         @Override
         public boolean onLongClick(View v) {
 
-            callback.onKnjigaLongClick(position);
+            callback.onKnjigaLongClick(filteredKnjige.get(position));
 //            v.showContextMenu();
             return false;
         }
@@ -123,7 +123,7 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
 
         @Override
         public void onClick(View v) {
-            callback.onKnjigaClick(position);
+            callback.onKnjigaClick(filteredKnjige.get(position));
         }
     }
 

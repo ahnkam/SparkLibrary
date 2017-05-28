@@ -146,6 +146,7 @@ public class EvidencijaKnjigaActivity extends AppCompatActivity implements AddKl
         //i tad izvrsiti samo update knjige
         if (knjigeViewModel != null) {
             novaKnjiga.setKnjigaID(knjigeViewModel.getKnjigaID());
+            novaKnjiga.setIznajmljena(knjigeViewModel.isIznajmljena());
             KnjigeKontroler.UpdateKnjiga(novaKnjiga, this);
             showDialog(getResources().getString(R.string.Success), getResources().getString(R.string.BookUpdateSuccess));
 
