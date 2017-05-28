@@ -1,7 +1,10 @@
 package com.example.admin.sparklibrary.Model;
 
 
-public class Clan {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Clan implements Parcelable {
     private int ClanID;
     private String Ime;
     private String Prezime;
@@ -25,6 +28,28 @@ public class Clan {
 
     }
 
+
+    protected Clan(Parcel in) {
+        ClanID = in.readInt();
+        Ime = in.readString();
+        Prezime = in.readString();
+        Adresa = in.readString();
+        BrojTelefona = in.readString();
+        ClanskiBroj = in.readString();
+        KorisnikID = in.readInt();
+    }
+
+    public static final Creator<Clan> CREATOR = new Creator<Clan>() {
+        @Override
+        public Clan createFromParcel(Parcel in) {
+            return new Clan(in);
+        }
+
+        @Override
+        public Clan[] newArray(int size) {
+            return new Clan[size];
+        }
+    };
 
     public String getIme() {
         return Ime;
@@ -80,5 +105,21 @@ public class Clan {
 
     public void setKorisnikID(int korisnikID) {
         KorisnikID = korisnikID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ClanID);
+        dest.writeString(Ime);
+        dest.writeString(Prezime);
+        dest.writeString(Adresa);
+        dest.writeString(BrojTelefona);
+        dest.writeString(ClanskiBroj);
+        dest.writeInt(KorisnikID);
     }
 }

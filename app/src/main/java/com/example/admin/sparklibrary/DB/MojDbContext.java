@@ -10,12 +10,14 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.admin.sparklibrary.Model.Clan;
+import com.example.admin.sparklibrary.Model.ClanoviKnjige;
 import com.example.admin.sparklibrary.Model.Klasifikacija;
 import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.Model.Korisnik;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
 public class MojDbContext extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "sparklibrary.db";
     //--------------------------------------------------------------------------
 
@@ -93,6 +95,9 @@ public class MojDbContext extends SQLiteOpenHelper {
 
     //ClanoviKnjige
     private static final String ClanoviKnjige_ClanoviKnjigeID = "ClanoviKnjigeID";
+    private static final String ClanoviKnjige_DatumPosudjivanja = "DatumPosudjivanja";
+    private static final String ClanoviKnjige_IsVracena = "IsVracena";
+
     //FK NA CLANA KOJI JE IZNAJMIO KNJIGU
     private static final String ClanoviKnjige_ClanID = "ClanID";
     //FK NA KNJIGU KOJA JE IZNAJMLJENA
@@ -177,6 +182,8 @@ public class MojDbContext extends SQLiteOpenHelper {
                 + ClanoviKnjige_ClanoviKnjigeID + " integer PRIMARY KEY AUTOINCREMENT NOT NULL ,"
                 + ClanoviKnjige_ClanID + " INT NOT NULL,"
                 + ClanoviKnjige_KnjigaID + " INT NOT NULL,"
+                + ClanoviKnjige_DatumPosudjivanja + " TEXT NOT NULL,"
+                + ClanoviKnjige_IsVracena + " INT NOT NULL,"
                 + "FOREIGN KEY(" + ClanoviKnjige_ClanID + ") REFERENCES " + TABLE_Clanovi + "(" + Clanovi_ClanID + "),"
                 + "FOREIGN KEY(" + ClanoviKnjige_KnjigaID + ") REFERENCES " + TABLE_Knjige + "(" + Knjige_KnjigaID + ")"
                 + ")"
@@ -217,7 +224,6 @@ public class MojDbContext extends SQLiteOpenHelper {
 
         return result != -1;
     }
-
     public List<Clan> usp_SelectClanovi() {
         List<Clan> clanovi = new ArrayList<>();
 
@@ -255,6 +261,40 @@ public class MojDbContext extends SQLiteOpenHelper {
         return clanovi;
     }
 
+    public Clan usp_SelectClanByClanskiBroj(String _clanskiBroj) {
+        Clan clan = null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT "
+                        + Clanovi_ClanID + ","
+                        + Clanovi_Ime + ","
+                        + Clanovi_Prezime + ","
+                        + Clanovi_Adresa + ","
+                        + Clanovi_BrojTelefona + ","
+                        + Clanovi_ClanskiBroj + ","
+                        + Clanovi_KorisnikID + ""
+                        + " FROM " + TABLE_Clanovi
+                        + " WHERE " + Clanovi_ClanskiBroj + "=?"
+                , new String[]{_clanskiBroj});
+
+        if (c.moveToFirst()) {
+            //assing values
+            String clanId = c.getString(0);
+            String ime = c.getString(1);
+            String prezime = c.getString(2);
+            String adresa = c.getString(3);
+            String brojTelefona = c.getString(4);
+            String clanskiBroj = c.getString(5);
+            String korisnikID = c.getString(6);
+            //Do something Here with values
+            clan = new Clan(Integer.parseInt(clanId), ime, prezime, adresa, brojTelefona, clanskiBroj, Integer.parseInt(korisnikID));
+
+        }
+        c.close();
+        db.close();
+
+        return clan;
+    }
 
     //----------------------------------------------------------------------------------------------------------------
     //CRUD KORISNICI
@@ -278,7 +318,6 @@ public class MojDbContext extends SQLiteOpenHelper {
         return result != -1;
 
     }
-
     public List<Korisnik> usp_SelectKorisnici() throws Exception {
         List<Korisnik> korisnici = new ArrayList<>();
 
@@ -311,7 +350,6 @@ public class MojDbContext extends SQLiteOpenHelper {
 
         return korisnici;
     }
-
     public Korisnik usp_SelectKorisnikByUsernameAndPass(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         Korisnik k = null;
@@ -340,7 +378,6 @@ public class MojDbContext extends SQLiteOpenHelper {
         return k;
 
     }
-
     public Korisnik usp_GetKorisnikByKorisnickoIme(String korisnickoIme) {
         SQLiteDatabase db = this.getReadableDatabase();
         Korisnik k = null;
@@ -370,8 +407,7 @@ public class MojDbContext extends SQLiteOpenHelper {
     }
 
 
-    //TODO : CRUD Knjige
-
+    //CRUD Knjige
     public List<KnjigeViewModel> usp_SelectKnjige() {
 
         List<KnjigeViewModel> knjige = new ArrayList<>();
@@ -416,8 +452,6 @@ public class MojDbContext extends SQLiteOpenHelper {
         return knjige;
 
     }
-
-
     public List<Klasifikacija> usp_SelectKlasifikacije() {
         List<Klasifikacija> klasifikacije = new ArrayList<>();
 
@@ -443,7 +477,6 @@ public class MojDbContext extends SQLiteOpenHelper {
         return klasifikacije;
 
     }
-
     public boolean usp_InsertKnjige(int knjigaID, int brojStranica, String datumDodavanja, int godinaIzdanja, String imeAutora, boolean iznajmljena,
                                     String naklada, String naslov, int korisnikID, int klasifikacijaID) {
         ContentValues values = new ContentValues();
@@ -465,7 +498,6 @@ public class MojDbContext extends SQLiteOpenHelper {
         return result != -1;
 
     }
-
     public boolean usp_InsertKlasifikacija(String naziv) {
         ContentValues values = new ContentValues();
         values.put(Klasifikacije_Naziv, naziv);
@@ -474,13 +506,62 @@ public class MojDbContext extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
-
     public boolean usp_DeleteKnjige(int knjigaID) {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        db.rawQuery("DELETE FROM "
-                + TABLE_Knjige + " WHERE " + Knjige_KnjigaID + " = ?", new String[]{knjigaID + ""});
+       /* db.rawQuery("DELETE FROM "
+                + TABLE_Knjige + " WHERE " + Knjige_KnjigaID + " = ?", new String[]{knjigaID + ""});*/
+        //prvo brisemo sve posudbe te knjige  pa zatim tu knjigu
+        int result = db.delete(TABLE_ClanoviKnjige, ClanoviKnjige_KnjigaID + "=?", new String[]{Integer.toString(knjigaID)});
+        int result2 = db.delete(TABLE_Knjige, Knjige_KnjigaID + " = ?", new String[]{Integer.toString(knjigaID)});
         db.close();
         return true;
+    }
+
+    public void usp_UpdateKnjiga(int knjigaID, int brojStranica, String datumDodavanja, int godinaIzdanja, String imeAutora, boolean iznajmljena, String naklada, String naslov, int korisnikID, int klasifikacijaID) {
+
+        ContentValues values = new ContentValues();
+        values.put(Knjige_BrojStranica, brojStranica);
+        values.put(Knjige_DatumDodavanja, datumDodavanja);
+        values.put(Knjige_GodinaIzdanja, godinaIzdanja);
+        values.put(Knjige_ImeAutora, imeAutora);
+        values.put(Knjige_IsIznajmljena, iznajmljena == true ? 1 : 0);
+        values.put(Knjige_Naklada, naklada);
+        values.put(Knjige_Naslov, naslov);
+        values.put(Knjige_KorisnikID, korisnikID);
+        values.put(Knjige_KlasifikacijaID, klasifikacijaID);
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.update(TABLE_Knjige, values, Knjige_KnjigaID + " = ?", new String[]{knjigaID + ""});
+        db.close();
+    }
+
+
+    public boolean usp_ClanoviKnjige_PosudiKnjigu(int knjigaID, int clanID, String datumPosudjivanja, int vracena) {
+        ContentValues values = new ContentValues();
+        values.put(ClanoviKnjige_KnjigaID, knjigaID);
+        values.put(ClanoviKnjige_ClanID, clanID);
+        values.put(ClanoviKnjige_DatumPosudjivanja, datumPosudjivanja);
+        values.put(ClanoviKnjige_IsVracena, vracena);
+        SQLiteDatabase db = getReadableDatabase();
+        boolean result = db.insert(TABLE_ClanoviKnjige, null, values) != -1;
+        db.close();
+        return result;
+    }
+
+    public void usp_Knjige_SetPosudjenja(int knjigaID, int isPosudjena) {
+        ContentValues values = new ContentValues();
+        values.put(Knjige_IsIznajmljena, isPosudjena);
+        SQLiteDatabase db = getReadableDatabase();
+        db.update(TABLE_Knjige, values, Knjige_KnjigaID + "=?", new String[]{Integer.toString(knjigaID)});
+        db.close();
+    }
+
+    public void usp_ClanoviKnjige_VratiPosudjeneKnjige(int knjigaID) {
+        ContentValues values = new ContentValues();
+        values.put(ClanoviKnjige_IsVracena, 0);
+        SQLiteDatabase db = getReadableDatabase();
+        db.update(TABLE_ClanoviKnjige, values, ClanoviKnjige_KnjigaID + "=?", new String[]{Integer.toString(knjigaID)});
+        db.close();
     }
 }

@@ -33,7 +33,7 @@
     <string name="tvBookImeAutora">Enter Autor name</string>
     <string name="tvBookGodinaIzdanja">Enter publication year</string>
     <string name="tvBookBrojStranica">Enter page number</string>
-    <string name="btnBookAddBook">Add book</string>
+    <string name="btnSaveBook">Save book</string>
     <string name="tvBookKlasifikacija">Select book classification</string>
     <string name="AddBookWarning">*Please enter required fields</string>
     <string name="AddBookSuccesTitleMessage">Knjiga uspjesno dodana!</string>
@@ -48,5 +48,16 @@
     <string name="FilterBooksDialogTitle">Select your filter</string>
     <string name="contextMenuDelete">Delete</string>
     <string name="contextMenuEdit">Edit</string>
+    <string name="BookUpdateSuccess">Book updated succesfully</string>
+    <string name="tvPosudjivanjeKnjigaClanskiBroj">Upisite clanski broj</string>
+    <string name="btnPosudiKnjigu">Posudi knjigu</string>
+    <string name="EnterClanskiBroj">Unesite clanski broj</string>
+    <string name="EnterValidClanskiBroj">Upisite validan clanski broj</string>
+    <string name="PosudiKnjiguDialogTitle">Posudjivanje knjige</string>
+    <string name="OK">U redu</string>
+    <string name="PosudjivanjeKnjigeClanu">Posuđivanje knjige članu</string>
+    <string name="VratiPosudjenuKnjiguDialogTitle">Vrati posudjenu knjigu</string>
+    <string name="VratiPosudjenuKnjiguDialogMessage">Vraćanje posuđene knjige</string>
+    <string name="VratiPosudjenuKnjiguDialogOK">Vrati knjigu</string>
 
 </resources>

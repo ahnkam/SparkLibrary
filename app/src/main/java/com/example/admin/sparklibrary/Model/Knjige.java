@@ -1,10 +1,13 @@
 package com.example.admin.sparklibrary.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.admin.sparklibrary.Config.Sesija;
 
 import java.util.Date;
 
-public class Knjige {
+public class Knjige implements Parcelable {
 
     private String Naslov;
     private String ImeAutora;
@@ -28,6 +31,30 @@ public class Knjige {
         KlasifikacijaID = klasifikacijaID;
         KorisnikID = korisnikId;
     }
+
+    protected Knjige(Parcel in) {
+        Naslov = in.readString();
+        ImeAutora = in.readString();
+        Naklada = in.readString();
+        GodinaIzdanja = in.readInt();
+        BrojStranica = in.readInt();
+        IsIznajmljena = in.readByte() != 0;
+        KnjigaID = in.readInt();
+        KlasifikacijaID = in.readInt();
+        KorisnikID = in.readInt();
+    }
+
+    public static final Creator<Knjige> CREATOR = new Creator<Knjige>() {
+        @Override
+        public Knjige createFromParcel(Parcel in) {
+            return new Knjige(in);
+        }
+
+        @Override
+        public Knjige[] newArray(int size) {
+            return new Knjige[size];
+        }
+    };
 
     public String getNaslov() {
         return Naslov;
@@ -107,5 +134,23 @@ public class Knjige {
 
     public void setKorisnikID(int korisnikID) {
         KorisnikID = korisnikID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Naslov);
+        dest.writeString(ImeAutora);
+        dest.writeString(Naklada);
+        dest.writeInt(GodinaIzdanja);
+        dest.writeInt(BrojStranica);
+        dest.writeByte((byte) (IsIznajmljena ? 1 : 0));
+        dest.writeInt(KnjigaID);
+        dest.writeInt(KlasifikacijaID);
+        dest.writeInt(KorisnikID);
     }
 }

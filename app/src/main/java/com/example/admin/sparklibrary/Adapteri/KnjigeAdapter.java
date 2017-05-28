@@ -29,6 +29,8 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
 
     public interface IKnjigeClick {
         void onKnjigaLongClick(int position);
+
+        void onKnjigaClick(int position);
     }
     Context ctx;
     List<KnjigeViewModel> knjige;
@@ -76,7 +78,7 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
         this.notifyDataSetChanged();
     }
 
-    public class KnjigeViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    public class KnjigeViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
         TextView tvNaslovKnjige;
         TextView tvNazivAutora;
         TextView tvNazivKlasifikacije;
@@ -92,7 +94,7 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
             tvGodinaIzdanja = (TextView) itemView.findViewById(R.id.tvKnjigaGodinaIzdanja);
             ivIsAvailable = (ImageView) itemView.findViewById(R.id.ivKnjigaIsIznajmljena);
             itemView.setOnLongClickListener(this);
-
+            itemView.setOnClickListener(this);
 
         }
 
@@ -103,7 +105,7 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
             tvNazivKlasifikacije.setText(filteredKnjige.get(position).getNazivKlasifikacije());
             tvGodinaIzdanja.setText(filteredKnjige.get(position).getGodinaIzdanja() + "");
 
-            if (knjige.get(position).isIznajmljena())
+            if (filteredKnjige.get(position).isIznajmljena())
                 ivIsAvailable.setImageResource(R.mipmap.ic_not_available);
             else
                 ivIsAvailable.setImageResource(R.mipmap.ic_available);
@@ -119,6 +121,10 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
         }
 
 
+        @Override
+        public void onClick(View v) {
+            callback.onKnjigaClick(position);
+        }
     }
 
     private class ItemFilter extends Filter {

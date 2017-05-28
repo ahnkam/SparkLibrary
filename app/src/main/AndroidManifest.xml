@@ -18,7 +18,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".AddBookActivity"></activity>
+        <activity android:name=".EvidencijaKnjigaActivity" />
+        <activity android:name=".PosudjivanjeKnjiga"></activity>
     </application>
 
 </manifest>

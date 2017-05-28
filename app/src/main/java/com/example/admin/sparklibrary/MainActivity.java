@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (savedInstanceState == null)
-            toolbar.setTitle(R.string.navTitleKnjige);
         setSupportActionBar(toolbar);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Find our drawer view
@@ -59,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tvKnjiznicarIme.setText(prijavljeniKnjiznicar.getIme() + " " + prijavljeniKnjiznicar.getPrezime());
 
         if (savedInstanceState == null) {
+            setTitle(R.string.navTitleKnjige);
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragmentPlaceholder, KnjigeFragment.getInstance()).commit();
         }
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_clanovi:
                 fragment = ClanoviFragment.getInstance();
+
                 break;
             case R.id.nav_posudjene_knjige:
                 fragment = PosudjeneKnjigeFragment.getInstance();
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_postavke:
                 fragment = PostavkeFragment.getInstance();
                 break;
-
             case R.id.nav_odjavi_se:
                 Sesija.setLogiraniKorisnik(null, this);
                 startActivity(LoginActivity.getInstance(this));
@@ -126,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        //TODO Postimati otvaranje fragmenta
         // Insert the fragment by replacing any existing fragment
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.admin.sparklibrary.DB.MojDbContext;
 import com.example.admin.sparklibrary.Model.Clan;
+import com.example.admin.sparklibrary.PosudjivanjeKnjiga;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,6 +27,11 @@ public class ClanoviKontroler {
     public static List<Clan> SelectClanovi(Context ctx) {
         MojDbContext db = new MojDbContext(ctx);
         return db.usp_SelectClanovi();
+    }
+
+    public static Clan SelectClanByClanskiBroj(Context ctx, String clanskiBroj) {
+        MojDbContext db = new MojDbContext(ctx);
+        return db.usp_SelectClanByClanskiBroj(clanskiBroj);
     }
 }
 
