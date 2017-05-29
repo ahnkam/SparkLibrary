@@ -29,7 +29,6 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
 
     public interface IKnjigeClick {
         void onKnjigaLongClick(KnjigeViewModel position);
-
         void onKnjigaClick(KnjigeViewModel position);
     }
     Context ctx;

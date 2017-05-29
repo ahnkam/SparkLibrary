@@ -60,5 +60,16 @@
     <string name="VratiPosudjenuKnjiguDialogMessage">Vraćanje posuđene knjige</string>
     <string name="VratiPosudjenuKnjiguDialogOK">Vrati knjigu</string>
     <string name="tvLogin">Login</string>
+    <string name="tvEvidencijaClana">Evidencija clana</string>
+    <string name="tvEvidencijaClanIme">Ime</string>
+    <string name="tvEvidencijaClanPrezime">Prezime</string>
+    <string name="tvEvidencijaClanAdresa">Adresa</string>
+    <string name="tvEvidencijaClanBrojTelefona">Broj Telefona</string>
+    <string name="tvEvidencijaClanClanskiBroj">Članski broj</string>
+    <string name="btnSaveClan">Sačuvaj člana</string>
+    <string name="evidencijaClanBrojTelefonaError">Unesite broj telefona</string>
+    <string name="evidencijaClanAdresaError">Unesite adresu</string>
+    <string name="evidencijaClanPrezimeError">Unesite prezime</string>
+    <string name="evidencijaClanImeError">Unesite ime</string>
 
 </resources>

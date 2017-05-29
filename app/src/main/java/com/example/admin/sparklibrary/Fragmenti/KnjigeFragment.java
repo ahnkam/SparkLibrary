@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -53,6 +54,11 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
         adapter = new KnjigeAdapter(getContext(), knjige, this);
         rvKnjige.setAdapter(adapter);
         rvKnjige.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        DividerItemDecoration decoration = new DividerItemDecoration(rvKnjige.getContext(),
+                DividerItemDecoration.VERTICAL);
+        rvKnjige.addItemDecoration(decoration);
+
         rvKnjige.setOnCreateContextMenuListener(this);
         fabAddKnjige.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +112,6 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
     public void onKnjigaLongClick(KnjigeViewModel knjigaSelected) {
         longKnjigaKlikSelected = knjigaSelected;
     }
-
     @Override
     public void onKnjigaClick(KnjigeViewModel knjigaSelected) {
         if (knjigaSelected.isIznajmljena()) {
@@ -126,10 +131,9 @@ public class KnjigeFragment extends Fragment implements FilterBooksDialog.IFilte
         inflater.inflate(R.menu.context_menu, menu);
 
     }
-
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+
         int position = -1;
         for (int i = 0; i < knjige.size(); ++i) {
             if (knjige.get(i).getKnjigaID() == longKnjigaKlikSelected.getKnjigaID())

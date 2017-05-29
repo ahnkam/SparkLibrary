@@ -19,7 +19,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".EvidencijaKnjigaActivity" />
-        <activity android:name=".PosudjivanjeKnjiga"></activity>
+        <activity android:name=".PosudjivanjeKnjiga" />
+        <activity android:name=".EvidencijaClanaActivity"></activity>
     </application>
 
 </manifest>

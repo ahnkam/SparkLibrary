@@ -3,8 +3,9 @@ package com.example.admin.sparklibrary.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class Clan implements Parcelable {
+public class Clan implements Parcelable, Comparable<Clan> {
     private int ClanID;
     private String Ime;
     private String Prezime;
@@ -121,5 +122,20 @@ public class Clan implements Parcelable {
         dest.writeString(BrojTelefona);
         dest.writeString(ClanskiBroj);
         dest.writeInt(KorisnikID);
+    }
+
+    @Override
+    public int compareTo(@NonNull Clan o) {
+
+
+        String imePrezime = Ime + Prezime;
+        String imePrezime2 = o.getIme() + o.getPrezime();
+
+        int result = imePrezime.compareTo(imePrezime2);
+        if (result > 1)
+            return 1;
+        if (result < 1)
+            return -1;
+        return 0;
     }
 }

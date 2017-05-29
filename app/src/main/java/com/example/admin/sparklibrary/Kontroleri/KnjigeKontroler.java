@@ -57,7 +57,6 @@ public class KnjigeKontroler {
 
     public static void VratiPosudjenuKnjigu(Context ctx, KnjigeViewModel k) {
         MojDbContext db = new MojDbContext(ctx);
-
         db.usp_Knjige_SetPosudjenja(k.getKnjigaID(), 0);
         db.usp_ClanoviKnjige_VratiPosudjeneKnjige(k.getKnjigaID());
     }
