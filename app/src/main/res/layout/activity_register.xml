@@ -21,6 +21,7 @@
             android:text="@string/tvRegister"
             android:gravity="center"
             android:textSize="@dimen/RegisterLabel"
+            android:textColor="@color/textColorBlue"
             android:layout_marginBottom="25dp" />
     </LinearLayout>
 
@@ -30,61 +31,81 @@
         android:layout_weight="10"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvRegisterName" />
-
-        <EditText
-            android:id="@+id/etKorisnikIme"
-            android:inputType="text"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvRegisterLastname" />
+            <EditText
+                android:id="@+id/etKorisnikIme"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvRegisterName" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
 
-            android:id="@+id/etKorisnikPrezime"
-            android:inputType="text"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvRegisterUsername" />
+            <EditText
+                android:id="@+id/etKorisnikPrezime"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvRegisterLastname" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etKorisnikKorisnickoIme"
-            android:inputType="text"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvRegisterPassword" />
+            <EditText
+                android:id="@+id/etKorisnikKorisnickoIme"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvRegisterUsername" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etKorisnikPassword"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etKorisnikPassword"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tvRegisterPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnRegisterSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btnRegisterSave" />
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/btnLogin"
+                android:textColor="@color/textColorBlue" />
 
+            <Button
+                android:id="@+id/btnRegisterSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundColorBlue"
+                android:textColor="#FFF"
+                android:text="@string/btnSignUp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/tvRegisterSaveWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_dark" />
-    </LinearLayout>
+</LinearLayout>
 </LinearLayout>

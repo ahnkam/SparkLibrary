@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.admin.sparklibrary.Helper.LoginRegisterUtil;
 import com.example.admin.sparklibrary.Kontroleri.KorisniciKontroler;
 import com.example.admin.sparklibrary.Model.Korisnik;
 
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etKorisnikPassword;
 
     Button btnRegisterSave;
+    Button btnLogin;
     TextView tvRegisterSaveWarning;
 
     @Override
@@ -42,6 +44,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 doBtnRegisterMe();
+            }
+        });
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -67,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
             tvRegisterSaveWarning.setText(getResources().getString(R.string.PasswordMinLength));
             return;
         }
-
+        password = LoginRegisterUtil.getHashPassword(password);
         Korisnik k = new Korisnik(-1, ime, prezime, korisnickoIme, password);
         KorisniciKontroler.InsertKorisnici(k, this);
         showSuccesDialog(k);

@@ -3,43 +3,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="@dimen/ScreenPadding"
     tools:context="com.example.admin.sparklibrary.LoginActivity">
 
-    <EditText
-        android:id="@+id/etUserName"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:text="@string/tvLogin"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/textColorBlue" />
+
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/etUserName" />
+            android:gravity="center"
+            android:textColor="#757575"
+            android:layout_marginTop="15dp"
+            android:text="“So many books, so little time.”"
+            android:textSize="15sp" />
 
-
-    <EditText
-        android:id="@+id/etPassword"
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="@string/etPassword" />
+            android:textColor="#757575"
+            android:gravity="right"
+            android:text="― Frank Zappa"
+            android:textSize="15sp" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnLogin"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnLogin" />
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnRegister"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/etUserName" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnRegister" />
+            android:layout_height="wrap_content">
 
-    <TextView
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/etPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/btnSignUp"
+                android:textColor="@color/textColorBlue" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundColorBlue"
+                android:textColor="#FFF"
+                android:text="@string/btnLogin" />
+        </LinearLayout>
+
+
+        <!--  -->
+
+        <TextView
         android:id="@+id/tvResultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_red_dark"
-
-        tools:text="*Wrong username or password" />
-
+        android:textColor="@android:color/holo_red_dark" />
+    </LinearLayout>
 </LinearLayout>

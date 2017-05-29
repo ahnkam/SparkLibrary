@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.admin.sparklibrary.Config.Sesija;
+import com.example.admin.sparklibrary.Helper.LoginRegisterUtil;
 import com.example.admin.sparklibrary.Kontroleri.KorisniciKontroler;
 import com.example.admin.sparklibrary.Model.Korisnik;
 
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             tvResultText.setText(getResources().getString(R.string.LoginRequiredFields));
             return;
         }
-        Korisnik k = KorisniciKontroler.Login(username, password, this);
+        Korisnik k = KorisniciKontroler.Login(username, LoginRegisterUtil.getHashPassword(password), this);
         if (k != null) {
             Sesija.setLogiraniKorisnik(k, this);
             startActivity(MainActivity.getInstance(this));

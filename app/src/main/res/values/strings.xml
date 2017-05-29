@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Spark Library</string>
-    <string name="etUserName">Enter your username</string>
-    <string name="etPassword">Enter your password</string>
+    <string name="etUserName">Username</string>
+    <string name="etPassword">Password</string>
     <string name="btnLogin">Login</string>
-    <string name="btnRegister">Register</string>
+    <string name="btnSignUp">Sign Up</string>
     <string name="LoginResultWarning">*Wrong username or password</string>
     <string name="tvRegisterName">Enter your name</string>
     <string name="tvRegisterLastname">Enter your lastname</string>
-    <string name="tvRegisterUsername">Enter your username</string>
-    <string name="tvRegisterPassword">Enter your password</string>
+    <string name="tvRegisterUsername">Username</string>
+    <string name="tvRegisterPassword">Password</string>
     <string name="btnRegisterSave">Register me</string>
     <string name="tvRegister">Register</string>
     <string name="LoginRequiredFields">*Please enter all required fields</string>
@@ -59,5 +59,6 @@
     <string name="VratiPosudjenuKnjiguDialogTitle">Vrati posudjenu knjigu</string>
     <string name="VratiPosudjenuKnjiguDialogMessage">Vraćanje posuđene knjige</string>
     <string name="VratiPosudjenuKnjiguDialogOK">Vrati knjigu</string>
+    <string name="tvLogin">Login</string>
 
 </resources>
