@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.sparklibrary.Adapteri.ClanoviAdapter;
+import com.example.admin.sparklibrary.DetaljiClanaActivity;
 import com.example.admin.sparklibrary.EvidencijaClanaActivity;
 import com.example.admin.sparklibrary.Kontroleri.ClanoviKontroler;
 import com.example.admin.sparklibrary.Kontroleri.KnjigeKontroler;
@@ -23,6 +24,9 @@ import com.example.admin.sparklibrary.R;
 import com.example.admin.sparklibrary.ViewModeli.ClanoviViewModel;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -43,8 +47,6 @@ public class ClanoviFragment extends Fragment implements ClanoviAdapter.IClanCli
         setHasOptionsMenu(true);
 
         rvClanovi = (RecyclerView) v.findViewById(R.id.rvClanovi);
-
-
         clanovi = ClanoviKontroler.SelectClanovi(getContext());
         adapter = new ClanoviAdapter(clanovi, this);
         rvClanovi.setAdapter(adapter);
@@ -92,7 +94,7 @@ public class ClanoviFragment extends Fragment implements ClanoviAdapter.IClanCli
 
     @Override
     public void onClanClick(ClanoviViewModel clan) {
-
+        startActivity(DetaljiClanaActivity.getInstance(getContext(), clan));
     }
 
     //context menu

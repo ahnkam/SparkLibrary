@@ -28,6 +28,7 @@ public class ClanoviAdapter extends RecyclerView.Adapter<ClanoviAdapter.ClanoviV
     public void updateData(List<ClanoviViewModel> clanovi) {
         this.clanovi.clear();
         this.clanovi.addAll(clanovi);
+        Collections.sort(this.clanovi);
         notifyDataSetChanged();
     }
 
@@ -42,8 +43,8 @@ public class ClanoviAdapter extends RecyclerView.Adapter<ClanoviAdapter.ClanoviV
 
     public ClanoviAdapter(List<ClanoviViewModel> clanovi, IClanClick c) {
         callback = c;
-        this.clanovi = new ArrayList<>();
-        this.clanovi.addAll(clanovi);
+        this.clanovi = new ArrayList<>(clanovi);
+        Collections.sort(this.clanovi);
 
 
     }

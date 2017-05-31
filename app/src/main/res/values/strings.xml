@@ -71,5 +71,7 @@
     <string name="evidencijaClanAdresaError">Unesite adresu</string>
     <string name="evidencijaClanPrezimeError">Unesite prezime</string>
     <string name="evidencijaClanImeError">Unesite ime</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="WelcomeNavheader">Welcome</string>
 
 </resources>

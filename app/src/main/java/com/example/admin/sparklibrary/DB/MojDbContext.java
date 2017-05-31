@@ -287,6 +287,7 @@ public class MojDbContext extends SQLiteOpenHelper {
         }
         c.close();
         db.close();
+
         for (ClanoviKnjige ck : posudjeneKnjige) {
             knjige.add(usp_SelectKnjigaByID(ck.getKnjigaID()));
         }
@@ -468,7 +469,8 @@ public class MojDbContext extends SQLiteOpenHelper {
                         + " JOIN " + TABLE_Klasifikacija + " ON "
                         + TABLE_Knjige + "." + Knjige_KlasifikacijaID + " = "
                         + TABLE_Klasifikacija + "." + Klasifikacije_KlasifikacijaID
-                , null);
+                        + " WHERE " + Knjige_KnjigaID + "=?"
+                , new String[]{Integer.toString(knjigaID)});
         if (c.moveToFirst()) {
             //assing values
             //KnjigaID,BrojStranica,DatumDodavanja,GodinaIzdanja,ImeAutora,IsIznajmljena,Naklada,Naslov,KorisnikID,KlasifikacijaID,Naziv

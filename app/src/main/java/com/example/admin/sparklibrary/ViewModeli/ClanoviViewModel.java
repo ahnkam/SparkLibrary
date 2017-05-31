@@ -1,6 +1,9 @@
 package com.example.admin.sparklibrary.ViewModeli;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.util.List;
  * Created by Admin on 29.05.2017..
  */
 
-public class ClanoviViewModel {
+public class ClanoviViewModel implements Parcelable, Comparable<ClanoviViewModel> {
     private int ClanID;
     private String Ime;
     private String Prezime;
@@ -31,6 +34,29 @@ public class ClanoviViewModel {
         KorisnikID = korisnikID;
         posudjeneKnjige = new ArrayList<>();
     }
+
+    protected ClanoviViewModel(Parcel in) {
+        ClanID = in.readInt();
+        Ime = in.readString();
+        Prezime = in.readString();
+        Adresa = in.readString();
+        BrojTelefona = in.readString();
+        ClanskiBroj = in.readString();
+        KorisnikID = in.readInt();
+        posudjeneKnjige = in.createTypedArrayList(KnjigeViewModel.CREATOR);
+    }
+
+    public static final Creator<ClanoviViewModel> CREATOR = new Creator<ClanoviViewModel>() {
+        @Override
+        public ClanoviViewModel createFromParcel(Parcel in) {
+            return new ClanoviViewModel(in);
+        }
+
+        @Override
+        public ClanoviViewModel[] newArray(int size) {
+            return new ClanoviViewModel[size];
+        }
+    };
 
     public int getClanID() {
         return ClanID;
@@ -94,5 +120,36 @@ public class ClanoviViewModel {
 
     public void setPosudjeneKnjige(List<KnjigeViewModel> posudjeneKnjige) {
         this.posudjeneKnjige = posudjeneKnjige;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ClanID);
+        dest.writeString(Ime);
+        dest.writeString(Prezime);
+        dest.writeString(Adresa);
+        dest.writeString(BrojTelefona);
+        dest.writeString(ClanskiBroj);
+        dest.writeInt(KorisnikID);
+        dest.writeTypedList(posudjeneKnjige);
+    }
+
+    public String getImePrezime() {
+        return Ime + " " + Prezime;
+    }
+
+    @Override
+    public int compareTo(@NonNull ClanoviViewModel o) {
+        int result = getIme().compareToIgnoreCase(o.getIme());
+        if (result == 0) {
+            return getPrezime().compareToIgnoreCase(o.getPrezime());
+        } else {
+            return result;
+        }
     }
 }

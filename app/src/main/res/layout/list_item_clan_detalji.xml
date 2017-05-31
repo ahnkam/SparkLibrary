@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person_name" />
+
+        <TextView
+            android:id="@+id/liClanDetaljiImePrezime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Petar Lukić"
+            android:textSize="@dimen/clan_detalji_font_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clanskibroj" />
+
+        <TextView
+            android:id="@+id/liClanDetaljiClanskiBroj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="CB170001"
+            android:textSize="@dimen/clan_detalji_font_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_phone_contact" />
+
+        <TextView
+            android:id="@+id/liClanDetaljiBrojTelefona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="063103730"
+            android:textSize="@dimen/clan_detalji_font_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_adresa" />
+
+        <TextView
+            android:id="@+id/liClanDetaljiAdresa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Novo naselje"
+            android:textSize="@dimen/clan_detalji_font_size" />
+    </LinearLayout>
+</LinearLayout>

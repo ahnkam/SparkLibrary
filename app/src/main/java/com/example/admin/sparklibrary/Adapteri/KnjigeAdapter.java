@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Admin on 24.05.2017..
  */
 
-public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeViewHolder> implements Filterable {
+public class KnjigeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
     public interface IKnjigeClick {
         void onKnjigaLongClick(KnjigeViewModel position);
@@ -49,15 +49,18 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
     }
 
     @Override
-    public KnjigeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(ctx).inflate(R.layout.list_item_knjige, parent, false);
-        return new KnjigeViewHolder(v);
+        RecyclerView.ViewHolder holder = new KnjigeViewHolder(v);
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(KnjigeViewHolder holder, int position) {
-        holder.bindData(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((KnjigeViewHolder) holder).bindData(position);
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -115,7 +118,6 @@ public class KnjigeAdapter extends RecyclerView.Adapter<KnjigeAdapter.KnjigeView
         public boolean onLongClick(View v) {
 
             callback.onKnjigaLongClick(filteredKnjige.get(position));
-//            v.showContextMenu();
             return false;
         }
 

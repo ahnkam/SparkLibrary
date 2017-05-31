@@ -21,6 +21,7 @@ public class VratiPosudjenuKnjiguDialog extends DialogFragment {
 
 
     private KnjigeViewModel knjiga;
+    private IVratiPosudjenuKnjiguDialog callback;
 
     public interface IVratiPosudjenuKnjiguDialog {
         void VratiPosudjenuDialogOkClicked(KnjigeViewModel knjiga);
@@ -39,7 +40,9 @@ public class VratiPosudjenuKnjiguDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         knjiga = getArguments().getParcelable(KEY_PARCELABLE_KNJIGA);
 
-
+        callback = ((IVratiPosudjenuKnjiguDialog) getTargetFragment());
+        if (callback == null)
+            callback = (IVratiPosudjenuKnjiguDialog) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.VratiPosudjenuKnjiguDialogTitle).setMessage(R.string.VratiPosudjenuKnjiguDialogMessage)
                 .setNegativeButton(R.string.DialogCancel, null)
@@ -55,6 +58,6 @@ public class VratiPosudjenuKnjiguDialog extends DialogFragment {
 
     private void doDialogBtnOkClicked() {
         KnjigeKontroler.VratiPosudjenuKnjigu(getContext(), knjiga);
-        ((IVratiPosudjenuKnjiguDialog) getTargetFragment()).VratiPosudjenuDialogOkClicked(knjiga);
+        callback.VratiPosudjenuDialogOkClicked(knjiga);
     }
 }

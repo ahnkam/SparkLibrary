@@ -20,7 +20,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".EvidencijaKnjigaActivity" />
         <activity android:name=".PosudjivanjeKnjiga" />
-        <activity android:name=".EvidencijaClanaActivity"></activity>
+        <activity android:name=".EvidencijaClanaActivity" />
+        <activity android:name=".DetaljiClanaActivity"></activity>
     </application>
 
 </manifest>

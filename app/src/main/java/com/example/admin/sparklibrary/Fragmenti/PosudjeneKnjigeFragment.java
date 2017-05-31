@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.admin.sparklibrary.Kontroleri.KnjigeKontroler;
 import com.example.admin.sparklibrary.R;
 
 /**
@@ -18,6 +19,8 @@ public class PosudjeneKnjigeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_layout_posudjene_knjige, container, false);
+
+        KnjigeKontroler.SelectPosudjeneKnjige(getContext());
 
         return v;
     }

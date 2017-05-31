@@ -69,4 +69,10 @@ public class KnjigeKontroler {
         return db.usp_ClanoviKnjige_PosudiKnjigu(ck.getKnjigaID(), ck.getClanID(),
                 DateTimeFormater.getStringFromDate(ck.getDatumPosudjivanja()), ck.isVracena() ? 1 : 0);
     }
+
+    public static List<KnjigeViewModel> SelectPosudjeneKnjige(Context ctx) {
+        MojDbContext db = new MojDbContext(ctx);
+        //TODO : URADITI SVASTA
+        return null;
+    }
 }

@@ -89,13 +89,14 @@ public class RegisterActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         StringBuilder sb = new StringBuilder();
         sb.append(k.getIme());
-        sb.append(" - ");
+        sb.append(" ");
         sb.append(k.getPrezime());
-        sb.append(" - ");
+        sb.append(" ");
         sb.append(k.getKorisnickoIme());
 
         sb.append(" " + getResources().getString(R.string.UserCreateSucces));
         builder.setMessage(sb.toString()).setTitle(getResources().getString(R.string.Success));
+        builder.setPositiveButton("OK", null);
         builder.show();
 
     }
