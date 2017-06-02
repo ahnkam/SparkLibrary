@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="@dimen/ScreenPadding"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvNaslovKnjige"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/naslovKnjigeTextSize"
+            tools:text="Naslov knjige" />
+
+        <TextView
+            android:id="@+id/tvImePrezimeClana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="Ime Prezime" />
+
+        <TextView
+            android:id="@+id/tvClanskiBroj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="PodrucjeKnjige" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvDatumIznajmljivanja"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="23.5.1993 15:30" />
+
+    </LinearLayout>
+</LinearLayout>

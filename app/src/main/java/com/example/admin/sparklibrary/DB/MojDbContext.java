@@ -14,16 +14,13 @@ import com.example.admin.sparklibrary.Model.ClanoviKnjige;
 import com.example.admin.sparklibrary.Model.Klasifikacija;
 import com.example.admin.sparklibrary.Model.Knjige;
 import com.example.admin.sparklibrary.Model.Korisnik;
+import com.example.admin.sparklibrary.ViewModeli.ClanoviKnjigeViewModel;
 import com.example.admin.sparklibrary.ViewModeli.ClanoviViewModel;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-/**
- * Created by Admin on 22.05.2017..
- */
 
 public class MojDbContext extends SQLiteOpenHelper {
 
@@ -459,7 +456,7 @@ public class MojDbContext extends SQLiteOpenHelper {
 
 
     //CRUD Knjige
-    public KnjigeViewModel usp_SelectKnjigaByID(int knjigaID) {
+    private KnjigeViewModel usp_SelectKnjigaByID(int knjigaID) {
         KnjigeViewModel knjiga = null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT "
@@ -571,7 +568,7 @@ public class MojDbContext extends SQLiteOpenHelper {
         values.put(Knjige_DatumDodavanja, datumDodavanja);
         values.put(Knjige_GodinaIzdanja, godinaIzdanja);
         values.put(Knjige_ImeAutora, imeAutora);
-        values.put(Knjige_IsIznajmljena, iznajmljena == true ? 1 : 0);
+        values.put(Knjige_IsIznajmljena, iznajmljena ? 1 : 0);
         values.put(Knjige_Naklada, naklada);
         values.put(Knjige_Naslov, naslov);
         values.put(Knjige_KorisnikID, korisnikID);
@@ -611,7 +608,7 @@ public class MojDbContext extends SQLiteOpenHelper {
         values.put(Knjige_DatumDodavanja, datumDodavanja);
         values.put(Knjige_GodinaIzdanja, godinaIzdanja);
         values.put(Knjige_ImeAutora, imeAutora);
-        values.put(Knjige_IsIznajmljena, iznajmljena == true ? 1 : 0);
+        values.put(Knjige_IsIznajmljena, iznajmljena ? 1 : 0);
         values.put(Knjige_Naklada, naklada);
         values.put(Knjige_Naslov, naslov);
         values.put(Knjige_KorisnikID, korisnikID);
@@ -656,5 +653,58 @@ public class MojDbContext extends SQLiteOpenHelper {
         db.delete(TABLE_ClanoviKnjige, ClanoviKnjige_ClanID + "=?", new String[]{Integer.toString(clanID)});
         db.delete(TABLE_Clanovi, ClanoviKnjige_ClanID + "=?", new String[]{Integer.toString(clanID)});
         db.close();
+    }
+
+    public List<ClanoviKnjigeViewModel> usp_selectPosudjeneKnjige() {
+        /*
+        * SELECT Knjige.Naslov,Clanovi.Ime, Clanovi.Prezime,Clanovi.ClanskiBroj,ClanoviKnjige.DatumPosudjivanja FROM ClanoviKnjige
+        JOIN Knjige ON
+        Knjige.KnjigaID = ClanoviKnjige.KnjigaID
+        JOIN Clanovi ON
+        Clanovi.ClanID = ClanoviKnjige.ClanID
+        * */
+        List<ClanoviKnjigeViewModel> clanovi = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String query =
+                "SELECT " +
+                        TABLE_ClanoviKnjige + "." + ClanoviKnjige_ClanoviKnjigeID + "," +
+                        TABLE_Knjige + "." + Knjige_KnjigaID + "," +
+                        TABLE_Clanovi + "." + Clanovi_ClanID + "," +
+                        TABLE_Knjige + "." + Knjige_Naslov + "," +
+                        TABLE_Clanovi + "." + Clanovi_Ime + ", " +
+                        TABLE_Clanovi + "." + Clanovi_Prezime + "," +
+                        TABLE_Clanovi + "." + Clanovi_ClanskiBroj + "," +
+                        TABLE_ClanoviKnjige + "." + ClanoviKnjige_DatumPosudjivanja +
+                        " FROM " + TABLE_ClanoviKnjige +
+                        " JOIN " + TABLE_Knjige + " ON "
+                        + TABLE_Knjige + "." + Knjige_KnjigaID + "=" + TABLE_ClanoviKnjige + "." + ClanoviKnjige_KnjigaID +
+                        " JOIN " + TABLE_Clanovi
+                        + " ON " + TABLE_Clanovi + "." + Clanovi_ClanID + "=" + TABLE_ClanoviKnjige + "." + ClanoviKnjige_ClanID
+                        + " WHERE " + TABLE_ClanoviKnjige + "." + ClanoviKnjige_IsVracena + "=?";
+
+        Cursor c = db.rawQuery(query, new String[]{Integer.toString(0)});
+        if (c.moveToFirst()) {
+            do {
+                //assing values
+                //KnjigaID,BrojStranica,DatumDodavanja,GodinaIzdanja,ImeAutora,IsIznajmljena,Naklada,Naslov,KorisnikID,KlasifikacijaID,Naziv
+
+                String CLanoviKnjigeID = c.getString(0);
+                String KnjigeID = c.getString(1);
+                String ClanID = c.getString(2);
+                String Naslov = c.getString(3);
+                String Ime = c.getString(4);
+                String Prezime = c.getString(5);
+                String ClanskiBroj = c.getString(6);
+                String DatumPosudjivanja = c.getString(7);
+                //Do something Here with values
+
+                clanovi.add(new ClanoviKnjigeViewModel(CLanoviKnjigeID, KnjigeID, ClanID, Naslov, Ime,
+                        Prezime, ClanskiBroj, DatumPosudjivanja));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return clanovi;
     }
 }

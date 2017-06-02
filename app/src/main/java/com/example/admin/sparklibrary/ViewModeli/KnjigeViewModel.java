@@ -8,9 +8,6 @@ import com.example.admin.sparklibrary.Kontroleri.KorisniciKontroler;
 
 import java.util.Date;
 
-/**
- * Created by Admin on 24.05.2017..
- */
 
 public class KnjigeViewModel implements Parcelable {
     private int KnjigaID;
@@ -26,6 +23,9 @@ public class KnjigeViewModel implements Parcelable {
     private int KorisnikID;
     private String NazivKlasifikacije;
 
+    public KnjigeViewModel(int knjigaID) {
+        KnjigaID = knjigaID;
+    }
     public KnjigeViewModel(String knjigaID, String brojStranica, String datumDodavanja, String godinaIzdanja, String imeAutora, String isIznajmljena,
                            String naklada, String naslov, String korisnikID, String klasifikacijaID, String nazivKlasifikacije) {
         KnjigaID = Integer.parseInt(knjigaID);
@@ -35,7 +35,7 @@ public class KnjigeViewModel implements Parcelable {
         DatumDodavanja = DateTimeFormater.getDateFromString(datumDodavanja);
         GodinaIzdanja = Integer.parseInt(godinaIzdanja);
         ImeAutora = imeAutora;
-        IsIznajmljena = Integer.parseInt(isIznajmljena) == 1 ? true : false;
+        IsIznajmljena = Integer.parseInt(isIznajmljena) == 1;
         Naklada = naklada;
         Naslov = naslov;
         KorisnikID = Integer.parseInt(korisnikID);

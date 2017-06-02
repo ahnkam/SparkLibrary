@@ -8,6 +8,7 @@ import com.example.admin.sparklibrary.Helper.DateTimeFormater;
 import com.example.admin.sparklibrary.Model.ClanoviKnjige;
 import com.example.admin.sparklibrary.Model.Klasifikacija;
 import com.example.admin.sparklibrary.Model.Knjige;
+import com.example.admin.sparklibrary.ViewModeli.ClanoviKnjigeViewModel;
 import com.example.admin.sparklibrary.ViewModeli.KnjigeViewModel;
 
 import java.util.List;
@@ -61,6 +62,12 @@ public class KnjigeKontroler {
         db.usp_ClanoviKnjige_VratiPosudjeneKnjige(k.getKnjigaID());
     }
 
+    public static void VratiPosudjenuKnjigu(Context ctx, int knjigaId) {
+        MojDbContext db = new MojDbContext(ctx);
+        db.usp_Knjige_SetPosudjenja(knjigaId, 0);
+        db.usp_ClanoviKnjige_VratiPosudjeneKnjige(knjigaId);
+    }
+
     public static boolean PosudiKnjigu(Context ctx, ClanoviKnjige ck) {
         MojDbContext db = new MojDbContext(ctx);
         //postavi knjigu posudjena
@@ -70,9 +77,8 @@ public class KnjigeKontroler {
                 DateTimeFormater.getStringFromDate(ck.getDatumPosudjivanja()), ck.isVracena() ? 1 : 0);
     }
 
-    public static List<KnjigeViewModel> SelectPosudjeneKnjige(Context ctx) {
+    public static List<ClanoviKnjigeViewModel> SelectPosudjeneKnjige(Context ctx) {
         MojDbContext db = new MojDbContext(ctx);
-        //TODO : URADITI SVASTA
-        return null;
+        return db.usp_selectPosudjeneKnjige();
     }
 }
