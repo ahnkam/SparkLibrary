@@ -58,4 +58,7 @@ public class Korisnik {
         return KorisnikID;
     }
 
+    public String getImePrezime() {
+        return Ime + " " + Prezime;
+    }
 }
